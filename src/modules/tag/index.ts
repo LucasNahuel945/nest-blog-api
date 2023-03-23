@@ -1,0 +1,5 @@
+export * from './tag.controller'
+export * from './tag.dto'
+export * from './tag.entity'
+export * from './tag.services'
+export * from './tag.module'

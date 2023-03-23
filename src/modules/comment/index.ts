@@ -1,0 +1,5 @@
+export * from './comment.controller'
+export * from './comment.dto'
+export * from './comment.entity'
+export * from './comment.services'
+export * from './comment.module'
