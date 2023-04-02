@@ -15,7 +15,7 @@ export class CategoryService {
     return await this.categoryRepository.find();
   }
 
-  async findOne(id: number): Promise<Category> {
+  async findOne(id: string): Promise<Category> {
     return await this.categoryRepository.findOneBy({ category_id: id });
   }
 

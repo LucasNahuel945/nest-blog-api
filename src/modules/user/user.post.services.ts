@@ -26,7 +26,7 @@ export class UserPostService {
       .findOneBy({ tag_id })
   }
 
-  private async getCategory(category_id: number): Promise<Category> {
+  private async getCategory(category_id: string): Promise<Category> {
     return this
       .categoryRepository
       .findOneBy({ category_id })

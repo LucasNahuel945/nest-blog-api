@@ -22,6 +22,6 @@ export class CreatePostDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  categories: number[];
+  categories: string[];
 
 }
