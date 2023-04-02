@@ -20,7 +20,7 @@ export class UserPostService {
     this.relations = ['author', 'categories', 'tags', 'related_posts', 'comments']
   }
 
-  private async getTag(tag_id: number): Promise<Tag> {
+  private async getTag(tag_id: string): Promise<Tag> {
     return this
       .tagRepository
       .findOneBy({ tag_id })

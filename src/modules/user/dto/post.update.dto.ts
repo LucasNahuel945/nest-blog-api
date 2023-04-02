@@ -18,7 +18,7 @@ export class UpdatePostDto {
   author: string;
 
   @ApiProperty()
-  tags: number[];
+  tags: string[];
 
   @ApiProperty()
   @IsNotEmpty()

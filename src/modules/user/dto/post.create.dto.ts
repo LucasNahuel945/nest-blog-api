@@ -18,7 +18,7 @@ export class CreatePostDto {
   author: string;
 
   @ApiProperty()
-  tags: number[];
+  tags: string[];
 
   @ApiProperty()
   @IsNotEmpty()
