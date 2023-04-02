@@ -27,7 +27,7 @@ export class UserController {
 
   @Get(':user_id')
   @OnlyAdmins()
-  async findOne(@Param('user_id') userId: number): Promise<User> {
+  async findOne(@Param('user_id') userId: string): Promise<User> {
     return this.userService.findOne(userId);
   }
   
@@ -44,31 +44,31 @@ export class UserController {
   @Put(':user_id')
   @OnlyAdmins()
   async update(@Param('user_id') userId: string, @Body() user: UpdateUserDto): Promise<User> {
-    return this.userService.update(+userId, user);
+    return this.userService.update(userId, user);
   }
 
   @OnlyAdmins()
   @Delete(':user_id')
   async delete(@Param('user_id') userId: string): Promise<User> {
-    return this.userService.delete(+userId);
+    return this.userService.delete(userId);
   }
 
   @Get(':user_id/owner')
   @OnlyOwner()
-  async getOwnerInfo(@Param('user_id') userId: number): Promise<User> {
+  async getOwnerInfo(@Param('user_id') userId: string): Promise<User> {
     return this.userService.findOne(userId);
   }
   
   @Put(':user_id/owner')
   @OnlyOwner()
   async updateOwner(@Param('user_id') userId: string, @Body() user: UpdateUserDto): Promise<User> {
-    return this.userService.update(+userId, user);
+    return this.userService.update(userId, user);
   }
   
   @Delete(':user_id/owner')
   @OnlyOwner()
   async deleteOwner(@Param('user_id') userId: string): Promise<User> {
-    return this.userService.delete(+userId);
+    return this.userService.delete(userId);
   }
 
   @Post(':user_id/posts')
@@ -89,7 +89,7 @@ export class UserController {
   @AllowRoles(UserRole.AUTHOR, UserRole.EDITOR)
   async updateOwnPost(
     @Param('post_id') postId: number,
-    @Param('user_id') userId: number,
+    @Param('user_id') userId: string,
     @Body() post: UpdatePostDto
   ): Promise<UserPost> {
     await this.userPostService.validatePostOwnership(userId, postId);
@@ -101,7 +101,7 @@ export class UserController {
   @AllowRoles(UserRole.AUTHOR, UserRole.EDITOR)
   async deleteOwnPost(
     @Param('post_id') postId: number,
-    @Param('user_id') userId: number,
+    @Param('user_id') userId: string,
   ): Promise<void> {
     await this.userPostService.validatePostOwnership(userId, postId);
     return this.userPostService.deletePost(+postId);

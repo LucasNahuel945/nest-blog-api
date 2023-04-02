@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   OneToMany,
 } from 'typeorm';
@@ -11,8 +11,8 @@ import { UserRole } from 'src/access-control/roles.enum';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
-  user_id: number;
+  @PrimaryColumn()
+  user_id: string;
   
   @ApiProperty()
   @Column()

@@ -32,7 +32,7 @@ export class UserPostService {
       .findOneBy({ category_id })
   }
 
-  async validatePostOwnership(userId: number, postId: number): Promise<Post> {
+  async validatePostOwnership(userId: string, postId: number): Promise<Post> {
     const post = await this.postRepository.findOne({
       where: {
         post_id: postId,

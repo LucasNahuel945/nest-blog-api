@@ -15,7 +15,7 @@ export class CreatePostDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  author: number;
+  author: string;
 
   @ApiProperty()
   tags: number[];

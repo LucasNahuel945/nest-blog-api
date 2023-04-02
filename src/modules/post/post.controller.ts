@@ -28,7 +28,7 @@ export class PostController {
 
   @Get('/author/:author_id')
   findByAuthor(
-    @Param('author_id') authorId: number,  
+    @Param('author_id') authorId: string,  
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10
   ): Promise<Post[]> {

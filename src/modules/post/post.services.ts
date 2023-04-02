@@ -29,7 +29,7 @@ export class PostService {
   }
 
   async findByAuthor(
-    id: number, 
+    id: string, 
     page: number = 1,
     limit: number = 10
   ): Promise<Post[]> {
