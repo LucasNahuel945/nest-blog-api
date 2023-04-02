@@ -10,8 +10,14 @@ export class CommentService {
     private readonly commentRepository: Repository<Comment>,
   ) {}
 
-  async findAll(): Promise<Comment[]> {
-    return await this.commentRepository.find();
+  async findAll(
+    page: number = 1,
+    limit: number = 10
+  ): Promise<Comment[]> {
+    return this.commentRepository.find({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
   async findOne(id: number): Promise<Comment> {

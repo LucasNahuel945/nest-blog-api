@@ -7,16 +7,17 @@ import { Post } from './post.entity';
 export class PostService {
   relations: string[];
 
-  constructor(
-    @InjectRepository(Post)
-    private postRepository: Repository<Post>,
-  ) {
+  constructor(@InjectRepository(Post) private postRepository: Repository<Post>) {
     this.relations = ['author', 'categories', 'tags', 'related_posts', 'comments']
   }
 
-  async findAll(): Promise<Post[]> {
+  async findAll(
+    page: number = 1,
+    limit: number = 10): Promise<Post[]> {
     return this.postRepository.find({
       relations: this.relations,
+      skip: (page - 1) * limit,
+      take: limit,
     });
   }
 
@@ -27,52 +28,75 @@ export class PostService {
     });
   }
 
-  async findByAuthor(id: number): Promise<Post[]> {
+  async findByAuthor(
+    id: number, 
+    page: number = 1,
+    limit: number = 10
+  ): Promise<Post[]> {
     return this.postRepository.find({
       where: { author: { user_id: id } },
       relations: this.relations,
+      skip: (page - 1) * limit,
+      take: limit,
     });
   }
 
-  async findByCategory(id: number): Promise<Post[]> {
+  async findByCategory(
+    id: number, 
+    page: number = 1,
+    limit: number = 10
+  ): Promise<Post[]> {
     const posts = await this
       .postRepository
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.categories', 'category')
-      .where('category.category_id = :id', { id })
+      .where(
+        'category.category_id = :id', {
+          id,
+          skip: (page - 1) * limit,
+          take: limit,
+        })
       .getMany();
 
     return posts;
   }
 
-  async findByTag(id: number): Promise<Post[]> {
+  async findByTag(
+    id: number, 
+    page: number = 1,
+    limit: number = 10
+  ): Promise<Post[]> {
     const posts = await this
       .postRepository
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.tags', 'tag')
-      .where('tag.tag_id = :id', { id })
+      .where('tag.tag_id = :id', {
+        id,
+        skip: (page - 1) * limit,
+        take: limit,
+      })
       .getMany();
 
     return posts;
   }
 
-  async findRelated(id: number): Promise<Post[]> {
+  async findRelated(
+    id: number, 
+    page: number = 1,
+    limit: number = 10
+  ): Promise<Post[]> {
     const posts = await this
       .postRepository
       .createQueryBuilder('post')
       .innerJoinAndSelect('post.related_posts', 'related_post')
-      .where('related_post.post_id = :id', { id })
+      .where('related_post.post_id = :id', {
+        id,
+        skip: (page - 1) * limit,
+        take: limit,
+      })
       .getMany();
     
     return posts;
-  }
-
-  async create(post: Post): Promise<Post> {
-    return this.postRepository.save(post);
-  }
-
-  async update(id: number, post: Post): Promise<void> {
-    await this.postRepository.update(id, post);
   }
 
   async delete(id: number): Promise<void> {

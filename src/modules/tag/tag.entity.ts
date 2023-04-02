@@ -3,14 +3,16 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToMany,
-} from "typeorm"
-import { Post } from '../post'
+} from "typeorm";
+import { ApiProperty } from '@nestjs/swagger';
+import { Post } from '../post';
 
 @Entity('tags')
 export class Tag {
   @PrimaryGeneratedColumn()
   tag_id: number;
 
+  @ApiProperty()
   @Column()
   name: string;
 

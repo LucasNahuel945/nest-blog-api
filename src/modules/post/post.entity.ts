@@ -6,25 +6,37 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
-} from 'typeorm'
-import { Category } from '../category'
-import { User } from '../user'
-import { Tag } from '../tag'
-import { Comment } from '../comment'
+} from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
+import { Category } from '../category';
+import { User } from '../user';
+import { Tag } from '../tag';
+import { Comment } from '../comment';
 
 @Entity('posts')
 export class Post {
   @PrimaryGeneratedColumn()
   post_id: number;
 
+  @ApiProperty()
   @Column()
   title: string;
 
+  @ApiProperty()
   @Column()
   content: string;
 
+  @ApiProperty()
   @Column()
-  publish_date: Date;
+  views: number;
+
+  @ApiProperty()
+  @Column()
+  cover: string;
+
+  @ApiProperty()
+  @Column()
+  created_at: Date;
 
   @ManyToOne(() => User, user => user.posts)
   author: User;
@@ -43,5 +55,4 @@ export class Post {
   @ManyToMany(() => Post, post => post.related_posts)
   @JoinTable()
   related_posts: Post[];
-
 }

@@ -1,53 +1,71 @@
-import { Controller, Get, Post as _Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Delete, Param, Query, NotFoundException } from '@nestjs/common';
 import { PostService } from './post.services';
 import { Post } from './post.entity';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AllowRoles, OnlyEditors, OnlyOwner } from 'src/access-control';
+import { UserRole } from 'src/access-control/roles.enum';
 
+@ApiBearerAuth()
+@ApiTags("Posts Endpoints")
 @Controller('posts')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+  ) {}
 
   @Get()
-  findAll(): Promise<Post[]> {
-    return this.postService.findAll();
+  async findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10
+  ): Promise<Post[]> {
+    return this.postService.findAll(page, limit);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number): Promise<Post> {
-    return this.postService.findOne(id);
+  @Get(':post_id')
+  findOne(@Param('post_id') postId: number): Promise<Post> {
+    return this.postService.findOne(postId);
   }
 
-  @Get('/author/:id')
-  findByAuthor(@Param('id') id: number): Promise<Post[]> {
-    return this.postService.findByAuthor(id);
+  @Get('/author/:author_id')
+  findByAuthor(
+    @Param('author_id') authorId: number,  
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10
+  ): Promise<Post[]> {
+    return this.postService.findByAuthor(authorId, page, limit);
   }
 
-  @Get('/category/:id')
-  findByCategory(@Param('id') id: number): Promise<Post[]> {
-    return this.postService.findByCategory(id);
+  @Get('/category/:category_id')
+  findByCategory(
+    @Param('category_id') categoryId: number,  
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10
+  ): Promise<Post[]> {
+    return this.postService.findByCategory(categoryId, page, limit);
   }
 
-  @Get('/tag/:id')
-  findByTag(@Param('id') id: number): Promise<Post[]> {
-    return this.postService.findByTag(id);
+  @Get('/tag/:tag_id')
+  findByTag(
+    @Param('tag_id') tagId: number,  
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10
+  ): Promise<Post[]> {
+    return this.postService.findByTag(tagId, page, limit);
   }
 
-  @Get('/:id/related')
-  findRelated(@Param('id') id: number): Promise<Post[]> {
-    return this.postService.findRelated(id);
+  @Get('/:post_id/related')
+  findRelated(
+    @Param('post_id') postId: number,  
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10
+  ): Promise<Post[]> {
+    return this.postService.findRelated(postId, page, limit);
   }
 
-  @_Post()
-  create(@Body() post: Post): Promise<Post> {
-    return this.postService.create(post);
+  @Delete(':post_id')
+  @AllowRoles(UserRole.EDITOR, UserRole.ADMIN)
+  delete(@Param('post_id') postId: string): Promise<void> {
+    return this.postService.delete(+postId);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() post: Post): Promise<void> {
-    return this.postService.update(+id, post);
-  }
-
-  @Delete(':id')
-  delete(@Param('id') id: string): Promise<void> {
-    return this.postService.delete(+id);
-  }
 }

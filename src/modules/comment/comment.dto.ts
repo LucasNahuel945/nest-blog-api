@@ -1,6 +1,6 @@
 import { IsString, IsDate, IsInt } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
 import { Transform } from 'class-transformer';
+import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateCommentDto {
     @IsString()

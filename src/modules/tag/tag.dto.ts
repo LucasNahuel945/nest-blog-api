@@ -1,9 +1,6 @@
 import { Length } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
 
-export class CreateTagDto {
+export class TagDto {
     @Length(1, 32)
     name: string;
 }
-
-export class UpdateTagDto extends PartialType(CreateTagDto) { }

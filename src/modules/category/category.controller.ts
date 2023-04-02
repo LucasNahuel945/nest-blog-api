@@ -1,7 +1,10 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { Category } from './category.entity';
 import { CategoryService } from './category.services';
+import { ApiTags } from '@nestjs/swagger';
+import { CategoryDto } from './category.dto';
 
+@ApiTags("Post's Categories Endpoints")
 @Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
@@ -17,7 +20,7 @@ export class CategoryController {
   }
 
   @Post()
-  create(@Body() category: Category): Promise<Category> {
+  create(@Body() category: CategoryDto): Promise<Category> {
     return this.categoryService.create(category);
   }
 

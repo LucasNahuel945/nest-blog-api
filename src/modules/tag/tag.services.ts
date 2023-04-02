@@ -11,15 +11,15 @@ export class TagService {
   ) {}
 
   async findAll(): Promise<Tag[]> {
-    return await this.tagRepository.find();
+    return this.tagRepository.find();
   }
 
   async findOne(id: number): Promise<Tag> {
-    return await this.tagRepository.findOneBy({ tag_id: id });
+    return this.tagRepository.findOneBy({ tag_id: id });
   }
 
   async create(tag: Tag): Promise<Tag> {
-    return await this.tagRepository.save(tag);
+    return this.tagRepository.save(tag);
   }
 
   async update(id: number, tag: Tag): Promise<void> {

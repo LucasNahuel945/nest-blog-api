@@ -1,20 +1,22 @@
-import { Module, ValidationPipe  } from '@nestjs/common'
+import { Module  } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService  } from '@nestjs/config';
-import { APP_PIPE } from '@nestjs/core';
+import { ConfigModule  } from '@nestjs/config';
 import {
+  AuthModule,
   CategoryModule,
   CommentModule,
   PostModule,
   TagModule,
-  UserModule,
+  UserModule
 } from './modules'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: process.env.NODE_ENV ? '.env.' + process.env.NODE_ENV : '.env.development',
+      envFilePath: process.env.NODE_ENV
+        ? '.env.' + process.env.NODE_ENV
+        : '.env.development',
     }),
     TypeOrmModule.forRoot({
         retryDelay: 3000,
@@ -30,20 +32,13 @@ import {
         logging: true,
         logger: 'file',
     }),
-    CategoryModule,
-    CommentModule,
-    PostModule,
-    TagModule,
     UserModule,
-  ],
-  controllers: [],
-  providers: [
-    {
-      provide: APP_PIPE,
-      useValue: new ValidationPipe({
-        whitelist: true,
-      }),
-    }
+    CategoryModule,
+    TagModule,
+    PostModule,
+    CommentModule,
+    AuthModule,
   ],
 })
+
 export class AppModule {}
