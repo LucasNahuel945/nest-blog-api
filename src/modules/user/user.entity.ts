@@ -5,6 +5,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { v4 as uuidv4 } from 'uuid';
 import { Post } from '../post';
 import { Comment } from '../comment';
 import { UserRole } from 'src/access-control/roles.enum';
@@ -12,7 +13,7 @@ import { UserRole } from 'src/access-control/roles.enum';
 @Entity('users')
 export class User {
   @PrimaryColumn()
-  user_id: string;
+  user_id: string = uuidv4();
   
   @ApiProperty()
   @Column()

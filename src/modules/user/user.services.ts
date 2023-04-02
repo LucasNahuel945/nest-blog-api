@@ -6,7 +6,6 @@ import { CreateUserDto } from './dto';
 import { User } from './user.entity';
 import { UserRole } from '../../access-control/roles.enum';
 import { UpdateUserDto } from './user.dto';
-import { uuid } from 'uuidv4';
 
 @Injectable()
 export class UserService {
@@ -47,7 +46,6 @@ export class UserService {
 
     const newUser = {
       ...user,
-      user_id: uuid(),
       password,
       role: UserRole.READER,
       created_at: new Date()
