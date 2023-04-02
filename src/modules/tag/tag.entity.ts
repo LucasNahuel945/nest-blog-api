@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   ManyToMany,
 } from "typeorm";
@@ -10,7 +10,7 @@ import { Post } from '../post';
 
 @Entity('tags')
 export class Tag {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   tag_id: string = uuidv4();
 
   @ApiProperty()
