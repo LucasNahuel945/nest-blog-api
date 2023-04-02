@@ -20,7 +20,7 @@ export class CommentService {
     });
   }
 
-  async findOne(id: number): Promise<Comment> {
+  async findOne(id: string): Promise<Comment> {
     return await this.commentRepository.findOneBy({ comment_id: id })
   }
 

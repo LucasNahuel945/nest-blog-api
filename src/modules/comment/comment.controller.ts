@@ -18,7 +18,7 @@ export class CommentController {
   @OnlyAdmins()
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Comment> {
-    return this.commentService.findOne(+id);
+    return this.commentService.findOne(id);
   }
 
   @OnlyAdmins()

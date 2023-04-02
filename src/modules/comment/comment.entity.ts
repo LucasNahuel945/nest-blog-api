@@ -1,17 +1,18 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   Column,
   ManyToOne,
 } from "typeorm";
 import { ApiProperty } from '@nestjs/swagger';
+import { v4 as uuidv4 } from 'uuid';
 import { Post } from '../post';
 import { User } from '../user';
 
 @Entity('comments')
 export class Comment {
-  @PrimaryGeneratedColumn()
-  comment_id: number;
+  @PrimaryColumn()
+  comment_id: string = uuidv4();
   
   @ApiProperty()
   @Column()
