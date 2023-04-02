@@ -22,7 +22,7 @@ export class PostController {
   }
 
   @Get(':post_id')
-  findOne(@Param('post_id') postId: number): Promise<Post> {
+  findOne(@Param('post_id') postId: string): Promise<Post> {
     return this.postService.findOne(postId);
   }
 

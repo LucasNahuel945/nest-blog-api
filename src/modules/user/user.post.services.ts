@@ -32,7 +32,7 @@ export class UserPostService {
       .findOneBy({ category_id })
   }
 
-  async validatePostOwnership(userId: string, postId: number): Promise<Post> {
+  async validatePostOwnership(userId: string, postId: string): Promise<Post> {
     const post = await this.postRepository.findOne({
       where: {
         post_id: postId,
@@ -44,7 +44,7 @@ export class UserPostService {
     return post;
   }
 
-  async findOne(id: number): Promise<Post> {
+  async findOne(id: string): Promise<Post> {
     return this.postRepository.findOne({
       where: { post_id: id },
       relations: this.relations,
@@ -67,7 +67,7 @@ export class UserPostService {
     });
   }
 
-  async updatePost(id: number, post: UpdatePostDto): Promise<Post> {
+  async updatePost(id: string, post: UpdatePostDto): Promise<Post> {
     const existingPost = await this.findOne(id);
     if (!existingPost) throw new NotFoundException();
 

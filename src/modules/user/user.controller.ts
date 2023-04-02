@@ -81,26 +81,26 @@ export class UserController {
   @Put(':user_id/posts/edit/:post_id')
   @AllowRoles(UserRole.EDITOR)
   updatePost(@Param('post_id') postId: string, @Body() post: UpdatePostDto): Promise<UserPost> {
-    return this.userPostService.updatePost(+postId, post);
+    return this.userPostService.updatePost(postId, post);
   }
 
   @Put(':user_id/posts/:post_id')
   @OnlyOwner()
   @AllowRoles(UserRole.AUTHOR, UserRole.EDITOR)
   async updateOwnPost(
-    @Param('post_id') postId: number,
+    @Param('post_id') postId: string,
     @Param('user_id') userId: string,
     @Body() post: UpdatePostDto
   ): Promise<UserPost> {
     await this.userPostService.validatePostOwnership(userId, postId);
-    return this.userPostService.updatePost(+postId, post);
+    return this.userPostService.updatePost(postId, post);
   }
 
   @Delete(':user_id/posts/:post_id')
   @OnlyOwner()
   @AllowRoles(UserRole.AUTHOR, UserRole.EDITOR)
   async deleteOwnPost(
-    @Param('post_id') postId: number,
+    @Param('post_id') postId: string,
     @Param('user_id') userId: string,
   ): Promise<void> {
     await this.userPostService.validatePostOwnership(userId, postId);
