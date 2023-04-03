@@ -8,6 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { v4 as uuidv4 } from 'uuid';
 import { Category } from '../category';
 import { User } from '../user';
 import { Tag } from '../tag';
@@ -16,7 +17,7 @@ import { Comment } from '../comment';
 @Entity('posts')
 export class Post {
   @PrimaryGeneratedColumn()
-  post_id: number;
+  post_id: string = uuidv4();
 
   @ApiProperty()
   @Column()

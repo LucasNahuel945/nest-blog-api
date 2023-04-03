@@ -25,7 +25,7 @@ export class UserService {
     return this.userRepository.find(this.select);
   }
 
-  async findOne(id: number): Promise<User> {
+  async findOne(id: string): Promise<User> {
     return this.userRepository.findOne({
       ...this.select,
       where: { user_id: id },
@@ -54,7 +54,7 @@ export class UserService {
     return this.userRepository.save(newUser);
   }
 
-  async update(id: number, user: UpdateUserDto): Promise<User> {
+  async update(id: string, user: UpdateUserDto): Promise<User> {
     const existingUser = await this.findOne(id);
 
     if (!existingUser) throw new NotFoundException();
@@ -64,7 +64,7 @@ export class UserService {
     return this.findOne(id);
   }
 
-  async delete(id: number): Promise<User> {
+  async delete(id: string): Promise<User> {
     const existingUser = await this.findOne(id);
 
     if (!existingUser) throw new NotFoundException();

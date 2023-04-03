@@ -14,7 +14,7 @@ export class TagController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<Tag> {
+  findOne(@Param('id') id: string): Promise<Tag> {
     return this.tagService.findOne(id);
   }
 

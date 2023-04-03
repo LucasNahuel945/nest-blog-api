@@ -15,13 +15,13 @@ export class CreatePostDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  author: number;
+  author: string;
 
   @ApiProperty()
-  tags: number[];
+  tags: string[];
 
   @ApiProperty()
   @IsNotEmpty()
-  categories: number[];
+  categories: string[];
 
 }

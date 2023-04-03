@@ -21,7 +21,7 @@ export class PostService {
     });
   }
 
-  async findOne(id: number): Promise<Post> {
+  async findOne(id: string): Promise<Post> {
     return this.postRepository.findOne({
       where: { post_id: id },
       relations: this.relations,
@@ -29,7 +29,7 @@ export class PostService {
   }
 
   async findByAuthor(
-    id: number, 
+    id: string, 
     page: number = 1,
     limit: number = 10
   ): Promise<Post[]> {

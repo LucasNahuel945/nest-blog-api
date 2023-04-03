@@ -14,7 +14,7 @@ export class TagService {
     return this.tagRepository.find();
   }
 
-  async findOne(id: number): Promise<Tag> {
+  async findOne(id: string): Promise<Tag> {
     return this.tagRepository.findOneBy({ tag_id: id });
   }
 

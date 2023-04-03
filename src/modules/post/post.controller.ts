@@ -22,13 +22,13 @@ export class PostController {
   }
 
   @Get(':post_id')
-  findOne(@Param('post_id') postId: number): Promise<Post> {
+  findOne(@Param('post_id') postId: string): Promise<Post> {
     return this.postService.findOne(postId);
   }
 
   @Get('/author/:author_id')
   findByAuthor(
-    @Param('author_id') authorId: number,  
+    @Param('author_id') authorId: string,  
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10
   ): Promise<Post[]> {
